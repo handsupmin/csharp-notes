@@ -109,6 +109,120 @@ namespace Notes
             // Trim()
             // TrimStart()
             // TrimEnd()
+
+            // 분할
+            // Split(string[] seperator, options)
+            string[] stringArr = stringTester.Split(new string[] { " " }, StringSplitOptions.None);
+            foreach (string elementStringArr in stringArr)
+                WriteLine($"{elementStringArr}");
+            // SubString(startIndex, endIndex)
+
+            // Formatting
+            // {첨자, 맞춤: 서식 문자열}
+            // 첨자:index
+            // 맞춤: -5(왼쪽 5칸 맞춤), 7(오른쪽 7칸 맞춤)
+            // 서식 문자열: D(10진수), X(16진수), N(콤마로 묶어 표현), F(고정소수점), E(지수)
+            // {0, -5: D4}: 10진수를 4자리 까지 표현
+            #endregion
+
+            #region 연산자
+            // 조건 연산자
+            // 조건식 ? 참 : 거짓
+            int conditionalOperatorInt = 30;
+            string conditionalOperatorResult = conditionalOperatorInt == 30 ? "True" : "False";
+
+            // null 연산자
+            // ?.
+            // 객체가 null이면 null을 반환, 아니면 .뒤에 지정된 멤버 반환
+            nullableIntA?.ToString();
+
+            // null 병합 연산자
+            // ??
+            // 왼쪽 피연산자가 null이 아니면 왼쪽 피연산자를 반환, null이면 오른쪽 피연산자를 반환
+            WriteLine($"{(nullableIntA ?? 0)}");
+            #endregion
+
+            #region 조건문
+            // if () - else if () - else
+            if (floatA > 0)
+                WriteLine("bigger than 0");
+            else if (floatA == 0)
+                WriteLine("0");
+            else
+                WriteLine("smaller than 0");
+
+            // switch ()
+            // 조건식은 정수, 문자열만 사용 가능
+            int switchCondition = 3;
+            switch (switchCondition)
+            {
+                case 1:
+                    WriteLine("1");
+                    break;
+                case 2:
+                    WriteLine("2");
+                    break;
+                case 3:
+                    WriteLine("3");
+                    break;
+                default:
+                    WriteLine("other");
+                    break;
+            }
+            // C# 7.0부터는 데이터 형식을 조건으로 사용할 수 있음
+            switch (objectA)
+            {
+                case int switchInt when switchInt >= 0: // when 사용 가능
+                    WriteLine($"{switchInt} is bigger than 0.");
+                    break;
+                case int switchInt:
+                    WriteLine($"{switchInt} is 0 or smaller than 0.");
+                    break;
+                case float switchfloat:
+                    WriteLine($"{switchfloat}");
+                    break;
+                default:
+                    WriteLine("other");
+                    break;
+            }
+
+            // switch 식
+            // case: =>
+            // break: ,
+            // default: _
+            bool switchBool = true;
+            int switchScore = 70;
+            string switchGrade = switchScore switch
+            {
+                90 when switchBool == true => "Fail",
+                90 => "A",
+                80 => "B",
+                70 => "C",
+                _ => "D"
+            };
+            #endregion
+
+            #region 반복문
+            // while () {}
+
+            // do {} while();
+            // do-while문에서 while문 뒤에는 반드시 세미콜론을 붙여줘야 함
+
+            // for()
+
+            // foreach(데이터형식 변수명 in 배열_or_컬렉션)
+            #endregion
+
+            #region 점프문
+            // break
+            // continue
+            // return
+            // throw
+            
+            // goto
+            // 중첩된 반복문을 빠져나올 때 유용
+            // goto EXAMPLE;
+            // EXAMPLE:
             #endregion
 
             #region title
