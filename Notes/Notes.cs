@@ -13,7 +13,14 @@ namespace Notes
             Test.test();
         }
 
-        private void Note()
+        static void Swap(ref int swapA, ref int swapB)
+        {
+            int swapper = swapB;
+            swapB = swapA;
+            swapA = swapper;
+        }
+
+    private void Note()
         {
             #region Casing Types
             // 1. PascalCasing(파스칼 케이싱)
@@ -218,11 +225,78 @@ namespace Notes
             // continue
             // return
             // throw
-            
+
             // goto
             // 중첩된 반복문을 빠져나올 때 유용
             // goto EXAMPLE;
             // EXAMPLE:
+            #endregion
+
+            #region 메소드
+            // call by value - default
+
+            // call by reference
+            // ref
+            /* 
+             * 메소드 작성 시, parameter에 ref
+             * static void Swap(ref int a, ref int b)
+             * { int temp = b; b = a; a = temp; }
+             * 
+             * 메소드 호출 시, argument에 ref
+             */
+            int swapX = 3;
+            int swapY = 4;
+            Swap(ref swapX, ref swapY);
+
+            // 참조 반환
+            /* 
+             * public ref int SomeMethod()
+             * { return ref SomeValue; }
+             * 
+             * 메소드 호출 시
+             * SomeClass obj = new SomeClass();
+             * ref int result = ref obj.SomeMethod();
+             * result는 참조 지역 변수
+             */
+
+            // out
+            // 출력 전용 parameter
+            // 메소드가 해당 parameter에 결과를 저장하지 않으면 에러 메시지 출력
+            /*
+             * void Divide(int a, int b, out int quotient, out int remainder)
+             * { quotient = a / b; remainder = a % b; }
+             * 
+             * int a = 20; int b = 3; int c; int d;
+             * Divide(a, b, out c, out d);
+             * 
+             * 출력 전용 parameter는 미리 선언할 필요가 없음
+             * int a = 20; int b = 3;
+             * Divide(a, b, out int c, out int d);
+             * WriteLine($"out1:{c}, out2;{d}");
+             */
+
+            // 메소드 오버로딩
+            // parameter의 수와 타입만 다르면 가능
+            // return type은 상관 없음
+
+            // 가변 개수의 인수
+            // params + 배열
+            //int Sum(params int[] args) { ... }
+
+            // 명명된 인수
+            // 메소드 호출 시 parameter의 이름을 사용 -> 가독성 증가
+            void PrintProfile(string name, string phone) { }
+            PrintProfile(name : "김XX", phone : "010-XXXX-XXXX");
+
+            // 선택적 인수
+            // parameter에 기본값을 줄 수 있고, 호출 시 기본값이 있는 parameter는 argument 생략 가능
+            // 항상 필수 인수 뒤에 와야함
+            // 오버로딩과 함께 사용할 때 주의
+            void PrintProfiles(string name, int age, string phone = "") { }
+            PrintProfiles(name: "김XX", age: 30);
+
+            // 로컬 함수
+            // 메소드 안에서 선언되고, 선언된 메소드 안에서만 사용되는 함수
             #endregion
 
             #region title
