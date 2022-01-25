@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using static System.Console;
 
 namespace Notes
@@ -20,7 +21,7 @@ namespace Notes
             swapA = swapper;
         }
 
-    private void Note()
+        private void Note()
         {
             #region Casing Types
             // 1. PascalCasing(파스칼 케이싱)
@@ -237,11 +238,11 @@ namespace Notes
 
             // call by reference
             // ref
-            /* 
+            /*
              * 메소드 작성 시, parameter에 ref
              * static void Swap(ref int a, ref int b)
              * { int temp = b; b = a; a = temp; }
-             * 
+             *
              * 메소드 호출 시, argument에 ref
              */
             int swapX = 3;
@@ -249,10 +250,10 @@ namespace Notes
             Swap(ref swapX, ref swapY);
 
             // 참조 반환
-            /* 
+            /*
              * public ref int SomeMethod()
              * { return ref SomeValue; }
-             * 
+             *
              * 메소드 호출 시
              * SomeClass obj = new SomeClass();
              * ref int result = ref obj.SomeMethod();
@@ -265,10 +266,10 @@ namespace Notes
             /*
              * void Divide(int a, int b, out int quotient, out int remainder)
              * { quotient = a / b; remainder = a % b; }
-             * 
+             *
              * int a = 20; int b = 3; int c; int d;
              * Divide(a, b, out c, out d);
-             * 
+             *
              * 출력 전용 parameter는 미리 선언할 필요가 없음
              * int a = 20; int b = 3;
              * Divide(a, b, out int c, out int d);
@@ -286,7 +287,7 @@ namespace Notes
             // 명명된 인수
             // 메소드 호출 시 parameter의 이름을 사용 -> 가독성 증가
             void PrintProfile(string name, string phone) { }
-            PrintProfile(name : "김XX", phone : "010-XXXX-XXXX");
+            PrintProfile(name: "김XX", phone: "010-XXXX-XXXX");
 
             // 선택적 인수
             // parameter에 기본값을 줄 수 있고, 호출 시 기본값이 있는 parameter는 argument 생략 가능
@@ -311,6 +312,81 @@ namespace Notes
 
             // this
             // 객체가 자기 자신을 지칭할 때 사용
+            #endregion
+
+            #region 패턴
+            // https://docs.microsoft.com/ko-kr/dotnet/csharp/language-reference/operators/patterns
+            // is 연산자
+            // 패턴 일치 여부 검사 가능
+
+            #endregion
+
+            #region C# 8.0
+            // https://docs.microsoft.com/ko-kr/dotnet/csharp/whats-new/csharp-8
+            // switch 식
+
+            // 인덱스
+            // https://docs.microsoft.com/ko-kr/dotnet/csharp/whats-new/csharp-8#indices-and-ranges
+            var words = new string[]
+            {
+                // index from start    index from end
+                "The",      // 0                   ^9
+                "quick",    // 1                   ^8
+                "brown",    // 2                   ^7
+                "fox",      // 3                   ^6
+                "jumped",   // 4                   ^5
+                "over",     // 5                   ^4
+                "the",      // 6                   ^3
+                "lazy",     // 7                   ^2
+                "dog"       // 8                   ^1
+            };              // 9 (or words.Length) ^0
+            var quickBrownFox = words[1..4];
+            var lazyDog = words[^2..^0];
+            var allWords = words[..]; // contains "The" through "dog".
+            var firstPhrase = words[..4]; // contains "The" through "fox"
+            var lastPhrase = words[6..]; // contains "the", "lazy" and "dog"
+
+            Range phrase = 1..4;
+            var text = words[phrase];
+
+            // null 병합 할당
+            List<int> numbers = null;
+            int? inull = null;
+
+            numbers ??= new List<int>();
+            numbers.Add(inull ??= 17);
+            numbers.Add(inull ??= 20);
+
+            Console.WriteLine(string.Join(" ", numbers));  // output: 17 17
+            Console.WriteLine(inull);  // output: 17
+            #endregion
+
+            #region C# 9.0
+            // https://docs.microsoft.com/ko-kr/dotnet/csharp/whats-new/csharp-9
+            // 값 비교
+            public record Person(string FirstName, string LastName, string[] PhoneNumbers);
+
+            public static void Main()
+            {
+                var phoneNumbers = new string[2];
+                Person person1 = new("Nancy", "Davolio", phoneNumbers);
+                Person person2 = new("Nancy", "Davolio", phoneNumbers);
+                Console.WriteLine(person1 == person2); // output: True
+
+                person1.PhoneNumbers[0] = "555-1234";
+                Console.WriteLine(person1 == person2); // output: True
+
+                Console.WriteLine(ReferenceEquals(person1, person2)); // output: False
+            }
+
+            // 레코드
+
+            // new식
+            private List<WeatherObservation> _observations = new();
+
+            public WeatherForecast ForecastFor(DateTime forecastDate, WeatherForecastOptions options);
+            var forecast = station.ForecastFor(DateTime.Now.AddDays(2), new());
+            WeatherStation station = new() { Location = "Seattle, WA" };
             #endregion
 
             WriteLine("");
