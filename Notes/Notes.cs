@@ -389,6 +389,10 @@ namespace Notes
             WeatherStation station = new() { Location = "Seattle, WA" };
             #endregion
 
+            // string.Empty 지양
+            string.IsNullOrWhiteSpace();
+            // string.IsNullOrEmpty와 차이점 숙지
+
             WriteLine("");
         }
     }
